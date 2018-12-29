@@ -9,6 +9,7 @@ gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 3.11'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'rails_event_store'
+gem 'dry-struct'
 
 # UI
 gem 'sass-rails', '~> 5.0'
