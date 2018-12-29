@@ -3,6 +3,9 @@
 module Blogging
 end
 
+# values
+require "blogging/values/articles_state"
+
 # events
 require "blogging/events/article_created_event"
 require "blogging/events/article_published_event"

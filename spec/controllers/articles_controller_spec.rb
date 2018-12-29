@@ -17,4 +17,20 @@ RSpec.describe ArticlesController, type: :controller do
       expect(assigns(:articles)).to eq([blogging_article])
     end
   end
+
+  context "#create" do
+    it "creates article" do
+      blogging_user = ::BlogManagement::UserReadModel.create!(name: "Name")
+      params = {
+        title: "A",
+        content: "B"
+      }
+
+      post :create, params: params
+      article = ::BlogManagement::ArticleReadModel.find_by(title: "A")
+
+      expect(article.content).to eq "B"
+      expect(article.user_id).to eq blogging_user.id
+    end
+  end
 end

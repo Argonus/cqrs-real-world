@@ -21,9 +21,11 @@ module Blogging
       raise TitleMissing if title.blank?
 
       apply ::Blogging::ArticleCreatedEvent.new(data: {
+        article_id: @id,
         title: title,
         content: content,
-        user_id: user_id
+        user_id: user_id,
+        created_at: DateTime.current
       })
     end
 
@@ -31,23 +33,23 @@ module Blogging
       raise AlreadyPublished if @state == published
       raise UserMissing if user_id.nil?
 
-      apply ::Blogging::ArticlePublishedEvent.new()
+      apply ::Blogging::ArticlePublishedEvent.new({article_id: @id})
     end
 
     private
 
     on ::Blogging::ArticleCreatedEvent do |event|
       @state = draft
+      @id = event.data[:article_id]
       @title = event.data[:title]
       @content = event.data[:content]
       @user_id = event.data[:user_id]
     end
 
-    on ::Blogging::ArticlePublishedEvent do |_|
+    on ::Blogging::ArticlePublishedEvent do |event|
+      @id = event.data[:article_id]
       @state = published
     end
-
-    private
 
     def new
       ::Blogging::ArticleState.new(:new)

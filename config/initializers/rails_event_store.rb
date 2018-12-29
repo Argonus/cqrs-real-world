@@ -20,7 +20,7 @@ Rails.configuration.to_prepare do
 
   # Register command handlers below
   Rails.configuration.command_bus.tap do |bus|
-    bus.register(Blogging::ArticleCreatedCommand, Blogging::OnArticleCreated)
-    bus.register(Blogging::ArticlePublishedCommand, Blogging::OnArticlePublished)
+    bus.register(Blogging::ArticleCreatedCommand, Blogging::OnArticleCreated.new)
+    bus.register(Blogging::ArticlePublishedCommand, Blogging::OnArticlePublished.new)
   end
 end
