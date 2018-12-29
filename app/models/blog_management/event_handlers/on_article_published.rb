@@ -1,14 +1,16 @@
 # frozen_string_literal: true
 
 module BlogManagement
-  class OnArticlePublished
-    def call(event)
-    end
+  module EventHandlers
+    class OnArticlePublished
+      def call(event)
+      end
 
-    private
+      private
 
-    def find_article(id)
-      ArticleReadModel.find(id)
+      def find_article(id)
+        ArticleReadModel.find(id)
+      end
     end
   end
 end

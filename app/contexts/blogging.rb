@@ -3,9 +3,6 @@
 module Blogging
 end
 
-# aggregates
-require "blogging/article"
-
 # events
 require "blogging/events/article_created_event"
 require "blogging/events/article_published_event"
@@ -17,3 +14,6 @@ require "blogging/commands/article_published_command"
 # command handlers
 require "blogging/command_handlers/on_article_created"
 require "blogging/command_handlers/on_article_published"
+
+# aggregates
+require "blogging/article"

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
 module Blogging
-  class ArticleCreatedEvent < Event
+  class ArticleCreatedEvent < ::Event
   end
 end

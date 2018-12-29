@@ -12,7 +12,7 @@ module Blogging
 
     def initialize(id)
       @id = id
-      @state = Blogging::ArticleState.new(:new)
+      @state = ::Blogging::ArticleState.new(:new)
     end
 
     def create(title:, content:, user_id:)
@@ -20,7 +20,7 @@ module Blogging
       raise UserMissing if user_id.nil?
       raise TitleMissing if title.blank?
 
-      apply ArticleCreatedEvent.new(data: {
+      apply ::Blogging::ArticleCreatedEvent.new(data: {
         title: title,
         content: content,
         user_id: user_id
@@ -31,34 +31,34 @@ module Blogging
       raise AlreadyPublished if @state == published
       raise UserMissing if user_id.nil?
 
-      apply ArticlePublishedEvent.new()
+      apply ::Blogging::ArticlePublishedEvent.new()
     end
 
     private
 
-    on ArticleCreatedEvent do |event|
+    on ::Blogging::ArticleCreatedEvent do |event|
       @state = draft
       @title = event.data[:title]
       @content = event.data[:content]
       @user_id = event.data[:user_id]
     end
 
-    on ArticlePublishedEvent do |_|
+    on ::Blogging::ArticlePublishedEvent do |_|
       @state = published
     end
 
     private
 
     def new
-      Blogging::ArticleState.new(:new)
+      ::Blogging::ArticleState.new(:new)
     end
 
     def published
-      Blogging::ArticleState.new(:published)
+      ::Blogging::ArticleState.new(:published)
     end
 
     def draft
-      Blogging::ArticleState.new(:draft)
+      ::Blogging::ArticleState.new(:draft)
     end
   end
 end
