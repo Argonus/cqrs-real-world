@@ -3,7 +3,7 @@
 module Blogging
   class ArticleState
     InvalidState = Class.new(StandardError)
-    VALID_STATES = %i[draft published hidden].freeze
+    VALID_STATES = %i[new draft published hidden].freeze
 
     attr_reader :state
 

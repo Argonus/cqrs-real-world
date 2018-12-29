@@ -1,9 +1,8 @@
 module Blogging
   class ArticlePublishedCommand < Command
-    attribute :id, Types::Coercible::Integer
+    attribute :article_id, Types::Coercible::Integer
     attribute :user_id, Types::Coercible::Integer
-    attribute :title
 
-    alias :aggregate_id :id
+    alias :aggregate_id :article_id
   end
 end

@@ -16,15 +16,20 @@ ActiveRecord::Schema.define(version: 2018_12_29_143651) do
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
-  create_table "blogging_articles", force: :cascade do |t|
+  create_table "blogging_articles", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "title"
     t.text "content"
-    t.bigint "blogging_users_id"
-    t.index ["blogging_users_id"], name: "index_blogging_articles_on_blogging_users_id"
+    t.uuid "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["created_at"], name: "index_blogging_articles_on_created_at"
+    t.index ["updated_at"], name: "index_blogging_articles_on_updated_at"
   end
 
-  create_table "blogging_users", force: :cascade do |t|
+  create_table "blogging_users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "event_store_events", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -46,5 +51,4 @@ ActiveRecord::Schema.define(version: 2018_12_29_143651) do
     t.index ["stream", "position"], name: "index_event_store_events_in_streams_on_stream_and_position", unique: true
   end
 
-  add_foreign_key "blogging_articles", "blogging_users", column: "blogging_users_id"
 end

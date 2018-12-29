@@ -10,11 +10,15 @@ Rails.configuration.to_prepare do
     config.default_event_store = Rails.configuration.event_store
   end
 
-  # Subscribe event handlers below
-  Rails.configuration.event_store.tap do |store|
-  end
-
-  # Register command handlers below
-  Rails.configuration.command_bus.tap do |bus|
-  end
+  # # Subscribe event handlers below
+  # Rails.configuration.event_store.tap do |store|
+  #   store.subscribe(BlogManagement::OnArticleCreated.new, to: [Blogging::ArticleCreatedEvent])
+  #   store.subscribe(BlogManagement::OnArticlePublished.new, to: [Blogging::ArticlePublishedEvent])
+  # end
+  #
+  # # Register command handlers below
+  # Rails.configuration.command_bus.tap do |bus|
+  #   bus.register(Blogging::ArticleCreatedCommand, Blogging::OnArticleCreated)
+  #   bus.register(Blogging::ArticlePublishedCommand, Blogging::OnArticlePublished)
+  # end
 end

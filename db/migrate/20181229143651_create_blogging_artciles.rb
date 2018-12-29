@@ -1,11 +1,11 @@
 class CreateBloggingArtciles < ActiveRecord::Migration[5.2]
   def change
-    create_table :blogging_articles do |t|
+    create_table :blogging_articles, id: :uuid do |t|
       t.string :title
       t.text :content
-      t.references :blogging_users, index: true, foreign_key: true
+      t.uuid :user_id
 
-      t.timestamp
+      t.timestamps null: true, index: true
     end
   end
 end
