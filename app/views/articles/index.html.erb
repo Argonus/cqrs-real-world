@@ -1,0 +1,17 @@
+<h2><%= @user.name %> Articles</h2>
+<table>
+  <thead>
+  <th>Title</th>
+  <th>Content</th>
+  <th>State</th>
+  </thead>
+  <tbody>
+  <%- @articles.each do |article| %>
+    <tr>
+      <td><%= article.title %></td>
+      <td><%= article.content %></td>
+    </tr>
+  <%- end %>
+  </tbody>
+</table>
+<%= link_to 'New Article', new_article_path %>

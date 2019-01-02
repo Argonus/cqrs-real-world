@@ -3,5 +3,7 @@
 module BlogManagement
   class ArticleReadModel < ApplicationRecord
     self.table_name = :blogging_articles
+
+    belongs_to :user, class_name: "BlogManagement::UserReadModel", foreign_key: :user_id
   end
 end

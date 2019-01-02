@@ -12,7 +12,7 @@ module Blogging
 
     def initialize(id)
       @id = id
-      @state = ::Blogging::ArticleState.new(:new)
+      @state = new
     end
 
     def create(title:, content:, user_id:)

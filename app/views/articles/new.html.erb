@@ -1,0 +1,13 @@
+<h2>Create new article</h2>
+<%= form_for @article, as: :article, url: articles_path(user_id: @user.id) do |f| %>
+  <div>
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </div>
+  <div>
+    <%= f.label :content %>
+    <%= f.text_area :content %>
+  </div>
+
+  <%= f.submit %>
+<%- end %>
