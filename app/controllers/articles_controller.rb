@@ -12,7 +12,7 @@ class ArticlesController < ApplicationController
       article_id: SecureRandom.uuid,
       title: article_params[:title],
       content: article_params[:content],
-      user_id: params[:user_id]
+      user_id: current_user.id
     ))
 
     redirect_to action: :index
@@ -25,12 +25,18 @@ class ArticlesController < ApplicationController
   end
 
   def destroy
+    command_bus.call(Blogging::ArticleDeleteCommand.new(
+      article_id: params[:id],
+      user_id: current_user.id
+    ))
+
+    redirect_to action: :index
   end
 
   private
 
   def current_user
-    @user = ::BlogManagement::UserReadModel.first!
+    @user = ::BlogManagement::UserReadModel.first || ::BlogManagement::UserReadModel.create(name: "Name")
   end
 
   def article_params

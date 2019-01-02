@@ -3,13 +3,14 @@
   <thead>
   <th>Title</th>
   <th>Content</th>
-  <th>State</th>
+  <th>Delete</th>
   </thead>
   <tbody>
   <%- @articles.each do |article| %>
     <tr>
       <td><%= article.title %></td>
       <td><%= article.content %></td>
+      <td><%= button_to "Delete", {controller: :articles, action: :destroy, id: article.id}, method: :delete %></td>
     </tr>
   <%- end %>
   </tbody>

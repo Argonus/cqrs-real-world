@@ -29,11 +29,17 @@ module Blogging
       })
     end
 
+    def delete(user_id:)
+      raise UserMissing if user_id.nil?
+
+      apply ::Blogging::ArticleDeletedEvent.new(data: {article_id: @id, user_id: user_id})
+    end
+
     def publish(user_id:)
       raise AlreadyPublished if @state == published
       raise UserMissing if user_id.nil?
 
-      apply ::Blogging::ArticlePublishedEvent.new({article_id: @id})
+      apply ::Blogging::ArticlePublishedEvent.new(data: {article_id: @id})
     end
 
     private
@@ -49,6 +55,10 @@ module Blogging
     on ::Blogging::ArticlePublishedEvent do |event|
       @id = event.data[:article_id]
       @state = published
+    end
+
+    on ::Blogging::ArticleDeletedEvent do |event|
+      @id = event.data[:article_id]
     end
 
     def new

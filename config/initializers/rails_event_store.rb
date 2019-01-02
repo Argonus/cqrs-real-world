@@ -15,12 +15,14 @@ Rails.configuration.to_prepare do
   # Subscribe event handlers below
   Rails.configuration.event_store.tap do |store|
     store.subscribe(BlogManagement::EventHandlers::OnArticleCreated.new, to: [Blogging::ArticleCreatedEvent])
+    store.subscribe(BlogManagement::EventHandlers::OnArticleDeleted.new, to: [Blogging::ArticleDeletedEvent])
     store.subscribe(BlogManagement::EventHandlers::OnArticlePublished.new, to: [Blogging::ArticlePublishedEvent])
   end
 
   # Register command handlers below
   Rails.configuration.command_bus.tap do |bus|
     bus.register(Blogging::ArticleCreatedCommand, Blogging::OnArticleCreated.new)
+    bus.register(Blogging::ArticleDeleteCommand, Blogging::OnArticleDeleted.new)
     bus.register(Blogging::ArticlePublishedCommand, Blogging::OnArticlePublished.new)
   end
 end
