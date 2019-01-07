@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Blogging
-  class ArticleCreatedCommand < Command
+  class ArticleCreateCommand < Command
     attribute :article_id, Types::Coercible::String
     attribute :user_id, Types::Coercible::String
     attribute :title, Types::Coercible::String

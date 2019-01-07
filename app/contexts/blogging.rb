@@ -14,12 +14,12 @@ require "blogging/events/article_published_event"
 # commands
 require "blogging/commands/article_create_command"
 require "blogging/commands/article_delete_command"
-require "blogging/commands/article_published_command"
+require "blogging/commands/article_publish_command"
 
 # command handlers
-require "blogging/command_handlers/on_article_created"
-require "blogging/command_handlers/on_article_deleted"
-require "blogging/command_handlers/on_article_published"
+require "blogging/command_handlers/on_article_create"
+require "blogging/command_handlers/on_article_delete"
+require "blogging/command_handlers/on_article_publish"
 
 # aggregates
 require "blogging/article"

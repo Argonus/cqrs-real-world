@@ -21,8 +21,8 @@ Rails.configuration.to_prepare do
 
   # Register command handlers below
   Rails.configuration.command_bus.tap do |bus|
-    bus.register(Blogging::ArticleCreatedCommand, Blogging::OnArticleCreated.new)
-    bus.register(Blogging::ArticleDeleteCommand, Blogging::OnArticleDeleted.new)
-    bus.register(Blogging::ArticlePublishedCommand, Blogging::OnArticlePublished.new)
+    bus.register(Blogging::ArticleCreateCommand, Blogging::OnArticleCreate.new)
+    bus.register(Blogging::ArticleDeleteCommand, Blogging::OnArticleDelete.new)
+    bus.register(Blogging::ArticlePublishCommand, Blogging::OnArticlePublish.new)
   end
 end

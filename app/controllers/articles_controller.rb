@@ -8,7 +8,7 @@ class ArticlesController < ApplicationController
   end
 
   def create
-    command_bus.call(Blogging::ArticleCreatedCommand.new(
+    command_bus.call(Blogging::ArticleCreateCommand.new(
       article_id: SecureRandom.uuid,
       title: article_params[:title],
       content: article_params[:content],

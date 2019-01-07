@@ -1,5 +1,5 @@
 module Blogging
-  class ArticlePublishedCommand < Command
+  class ArticlePublishCommand < Command
     attribute :article_id, Types::Coercible::String
     attribute :user_id, Types::Coercible::String
 
