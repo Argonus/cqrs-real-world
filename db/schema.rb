@@ -10,11 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_29_143651) do
+ActiveRecord::Schema.define(version: 2019_01_10_182047) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
+
+  create_table "account_users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.datetime "confirmed_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "blogging_articles", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "title"
@@ -22,14 +30,24 @@ ActiveRecord::Schema.define(version: 2018_12_29_143651) do
     t.uuid "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.uuid "blog_id"
     t.index ["created_at"], name: "index_blogging_articles_on_created_at"
     t.index ["updated_at"], name: "index_blogging_articles_on_updated_at"
+  end
+
+  create_table "blogging_blogs", force: :cascade do |t|
+    t.string "name"
+    t.string "published"
+    t.uuid "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "blogging_users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean "confirmed"
   end
 
   create_table "event_store_events", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

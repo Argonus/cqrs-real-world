@@ -5,7 +5,7 @@ module BlogManagement
     class OnArticleCreated
       def call(event)
         ArticleReadModel.create!(
-          id: event.data[:id],
+          id: event.data[:article_id],
           title: event.data[:title],
           content: event.data[:content],
           user_id: event.data[:user_id],
