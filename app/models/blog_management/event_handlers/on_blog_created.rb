@@ -2,13 +2,13 @@
 
 module BlogManagement
   module EventHandlers
-    class OnArticleCreated
+    class OnBlogCreated
       def call(event)
-        ArticleReadModel.create!(
-          id: event.data[:article_id],
-          title: event.data[:title],
-          content: event.data[:content],
+        BlogReadModel.create!(
+          id: event.data[:blog_id],
+          name: event.data[:name],
           user_id: event.data[:user_id],
+
           created_at: event.data[:timestamp],
           updated_at: event.data[:timestamp]
         )

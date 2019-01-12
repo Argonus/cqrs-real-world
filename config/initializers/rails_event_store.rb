@@ -14,9 +14,28 @@ Rails.configuration.to_prepare do
 
   # Subscribe event handlers below
   Rails.configuration.event_store.tap do |store|
+    # blog management
     store.subscribe(BlogManagement::EventHandlers::OnArticleCreated.new, to: [Blogging::ArticleCreatedEvent])
     store.subscribe(BlogManagement::EventHandlers::OnArticleDeleted.new, to: [Blogging::ArticleDeletedEvent])
     store.subscribe(BlogManagement::EventHandlers::OnArticlePublished.new, to: [Blogging::ArticlePublishedEvent])
+
+    store.subscribe(BlogManagement::EventHandlers::OnUserCreated.new, to: [Account::UserCreatedEvent])
+    store.subscribe(BlogManagement::EventHandlers::OnUserConfirmed.new, to: [Account::UserConfirmedEvent])
+
+    store.subscribe(BlogManagement::EventHandlers::OnBlogCreated.new, to: [Blogging::BlogCreatedEvent])
+    store.subscribe(BlogManagement::EventHandlers::OnBlogPublished.new, to: [Blogging::BlogPublishedEvent])
+
+    # account management
+    store.subscribe(AccountManagement::EventHandlers::OnUserCreated.new, to: [Account::UserCreatedEvent])
+    store.subscribe(AccountManagement::EventHandlers::OnUserConfirmed.new, to: [Account::UserConfirmedEvent])
+
+    # blogging
+    store.subscribe(
+      Blogging::PublishBlogProcessManager.new,
+      to: [
+        Blogging::BlogCreatedEvent,
+        Blogging::ArticlePublishedEvent,
+      ])
   end
 
   # Register command handlers below
@@ -24,5 +43,11 @@ Rails.configuration.to_prepare do
     bus.register(Blogging::ArticleCreateCommand, Blogging::OnArticleCreate.new)
     bus.register(Blogging::ArticleDeleteCommand, Blogging::OnArticleDelete.new)
     bus.register(Blogging::ArticlePublishCommand, Blogging::OnArticlePublish.new)
+
+    bus.register(Blogging::BlogCreateCommand, Blogging::OnBlogCreate.new)
+    bus.register(Blogging::BlogPublishCommand, Blogging::OnBlogPublish.new)
+
+    bus.register(Account::UserConfirmCommand, Account::OnUserConfirm.new)
+    bus.register(Account::UserCreateCommand, Account::OnUserCreate.new)
   end
 end

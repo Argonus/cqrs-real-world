@@ -8,7 +8,8 @@ module Blogging
       with_aggregate(Article, command.aggregate_id) do |article|
         article.publish(
           {
-            user_id: command.user_id
+            user_id: command.user_id,
+            blog_id: command.blog_id
           }
         )
       end

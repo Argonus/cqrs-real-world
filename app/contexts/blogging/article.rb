@@ -9,6 +9,7 @@ module Blogging
     AlreadyPublished = Class.new(StandardError)
     UserMissing = Class.new(StandardError)
     TitleMissing = Class.new(StandardError)
+    BlogMissing = Class.new(StandardError)
 
     def initialize(id)
       @id = id
@@ -35,11 +36,15 @@ module Blogging
       apply ::Blogging::ArticleDeletedEvent.new(data: {article_id: @id, user_id: user_id})
     end
 
-    def publish(user_id:)
+    def publish(user_id:, blog_id:)
       raise AlreadyPublished if @state == published
       raise UserMissing if user_id.nil?
+      raise BlogMissing if blog_id.nil?
 
-      apply ::Blogging::ArticlePublishedEvent.new(data: {article_id: @id})
+      apply ::Blogging::ArticlePublishedEvent.new(data: {
+        article_id: @id,
+        blog_id: blog_id
+      })
     end
 
     private
@@ -54,6 +59,7 @@ module Blogging
 
     on ::Blogging::ArticlePublishedEvent do |event|
       @id = event.data[:article_id]
+      @blog_id = event.data[:blog_id]
       @state = published
     end
 
