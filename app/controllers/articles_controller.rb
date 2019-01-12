@@ -21,6 +21,7 @@ class ArticlesController < ApplicationController
   def publish
     command_bus.call(Blogging::ArticlePublishCommand.new(
       article_id: params[:id],
+      blog_id: params[:blog_id],
       user_id: current_user.id
     ))
 

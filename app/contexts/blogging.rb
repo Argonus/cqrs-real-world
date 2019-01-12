@@ -27,6 +27,9 @@ require "blogging/command_handlers/on_article_publish"
 require "blogging/command_handlers/on_blog_create"
 require "blogging/command_handlers/on_blog_publish"
 
+# process managers
+require "blogging/process_managers/publish_blog_process_manager"
+
 # aggregates
 require "blogging/article"
 require "blogging/blog"

@@ -4,8 +4,8 @@ module BlogManagement
   module EventHandlers
     class OnBlogPublished
       def call(event)
-        UserReadModel.
-          find(event.data[:user_id]).
+        BlogReadModel.
+          find(event.data[:blog_id]).
           update!(published: true)
       end
     end

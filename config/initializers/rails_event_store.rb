@@ -28,6 +28,14 @@ Rails.configuration.to_prepare do
     # account management
     store.subscribe(AccountManagement::EventHandlers::OnUserCreated.new, to: [Account::UserCreatedEvent])
     store.subscribe(AccountManagement::EventHandlers::OnUserConfirmed.new, to: [Account::UserConfirmedEvent])
+
+    # blogging
+    store.subscribe(
+      Blogging::PublishBlogProcessManager.new,
+      to: [
+        Blogging::BlogCreatedEvent,
+        Blogging::ArticlePublishedEvent,
+      ])
   end
 
   # Register command handlers below

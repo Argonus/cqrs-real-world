@@ -26,9 +26,7 @@ module Blogging
       })
     end
 
-    def publish(user_id:)
-      raise UserMissing if user_id.nil?
-
+    def publish
       apply ::Blogging::BlogPublishedEvent.new(data: {
         blog_id: @id,
 

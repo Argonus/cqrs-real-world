@@ -6,11 +6,7 @@ module Blogging
 
     def call(command)
       with_aggregate(Blog, command.aggregate_id) do |blog|
-        blog.publish(
-          {
-            user_id: command.user_id
-          }
-        )
+        blog.publish
       end
     end
   end
