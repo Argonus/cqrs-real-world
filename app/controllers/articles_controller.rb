@@ -19,6 +19,12 @@ class ArticlesController < ApplicationController
   end
 
   def publish
+    command_bus.call(Blogging::ArticlePublishCommand.new(
+      article_id: params[:id],
+      user_id: current_user.id
+    ))
+
+    redirect_to action: :index
   end
 
   def update

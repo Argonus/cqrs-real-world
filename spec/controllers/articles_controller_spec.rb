@@ -36,6 +36,19 @@ RSpec.describe ArticlesController, type: :controller do
     end
   end
 
+  context "PATCH #publish" do
+    it "publishes article" do
+      blogging_user = ::BlogManagement::UserReadModel.create!(name: "Name")
+      blogging_article = ::BlogManagement::ArticleReadModel.create!(title: "A", content: "B", user_id: blogging_user.id)
+
+      patch :publish, params: {id: blogging_article.id}
+
+      blogging_article.reload
+
+      expect(blogging_article.state).to eq "published"
+    end
+  end
+
   context "DELETE #destroy" do
     it "deletes article" do
       blogging_user = ::BlogManagement::UserReadModel.create!(name: "Name")
