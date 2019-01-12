@@ -4,6 +4,7 @@ module BlogManagement
   module EventHandlers
     class OnArticlePublished
       def call(event)
+        find_article(event.data[:article_id]).update!(state: :published)
       end
 
       private

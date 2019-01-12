@@ -2,6 +2,11 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   resources :articles
+  resources :blogs do
+    member do
+      patch :publish
+    end
+  end
   resources :users do
     member do
       patch :confirm
