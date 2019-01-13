@@ -34,6 +34,7 @@ Rails.configuration.to_prepare do
       Blogging::PublishBlogProcessManager.new,
       to: [
         Blogging::BlogCreatedEvent,
+        Blogging::BlogPublishedEvent,
         Blogging::ArticlePublishedEvent,
       ])
   end

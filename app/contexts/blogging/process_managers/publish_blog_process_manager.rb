@@ -6,6 +6,7 @@ module Blogging
       def initialize
         @blog_created = false
         @article_published = false
+        @blog_published = false
 
         @version = -1
         @event_ids_to_link = []
@@ -16,6 +17,7 @@ module Blogging
           case event
           when ::Blogging::BlogCreatedEvent then apply_blog_created
           when ::Blogging::ArticlePublishedEvent then apply_article_published
+          when ::Blogging::BlogPublishedEvent then apply_blog_published
           end
           @event_ids_to_link << event.event_id
         end
@@ -44,7 +46,7 @@ module Blogging
       end
 
       def publishable?
-        @blog_created && @article_published
+        !@blog_published && @blog_created && @article_published
       end
 
       private
@@ -53,12 +55,12 @@ module Blogging
         @blog_created = true
       end
 
-      def apply_user_confirmed
-        @user_confirmed = true
-      end
-
       def apply_article_published
         @article_published = true
+      end
+
+      def apply_blog_published
+        @blog_published = true
       end
     end
     private_constant :State
