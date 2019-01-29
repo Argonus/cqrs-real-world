@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
-require "aggregate_root"
+# require "aggregate_root"
+require_relative "../../../lib/user_aggregate_root"
 
 module Account
   class User
-    include AggregateRoot
+    include UserAggregateRoot
 
     FirstNameMissing = Class.new(StandardError)
     UserMissing = Class.new(StandardError)
@@ -34,11 +35,11 @@ module Account
 
     private
 
-    on ::Account::UserConfirmedEvent do |event|
+    def apply_user_confirmed_event(event)
       @id = event.data[:user_id]
     end
 
-    on ::Account::UserCreatedEvent do |event|
+    def apply_user_created_event(event)
       @first_name = event.data[:first_name]
       @last_name = event.data[:last_name]
     end
