@@ -33,6 +33,8 @@ group :test do
   gem 'rspec-rails'
   gem 'database_cleaner'
   gem 'rails-controller-testing'
+  gem 'rails_event_store-rspec'
+  gem 'timecop'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

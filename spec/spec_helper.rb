@@ -96,4 +96,5 @@ RSpec.configure do |config|
 end
 
 Dir[File.join(File.dirname(__FILE__), 'support/**/*.rb')].each { |f| require f }
-
+require 'rails_event_store/rspec'
+require 'timecop'
